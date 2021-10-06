@@ -1,0 +1,17 @@
+{
+	"name": "OnPrem_SQL_Server_Connection",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "SqlServer",
+		"typeProperties": {
+			"connectionString": "integrated security=True;data source=192.168.0.79;initial catalog=PWAzureADFOnPrem",
+			"userName": "Bek Kenchenbayev",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiJiMmU2ZTZjNi03YjI0LTQyNjItOWM3MS0yZGU5MTM1ZWJlOTEiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+		},
+		"connectVia": {
+			"referenceName": "BekLocalMachine",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}
