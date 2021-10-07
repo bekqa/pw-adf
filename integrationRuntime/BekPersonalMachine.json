@@ -1,0 +1,6 @@
+{
+	"name": "BekPersonalMachine",
+	"properties": {
+		"type": "SelfHosted"
+	}
+}
