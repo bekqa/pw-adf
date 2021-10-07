@@ -1,0 +1,22 @@
+{
+	"name": "DestinationDataset_lun",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "BlobStorage_azurestorage",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "dbo.emp",
+				"container": "pw-container-bk"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"quoteChar": "\""
+		},
+		"schema": []
+	}
+}
