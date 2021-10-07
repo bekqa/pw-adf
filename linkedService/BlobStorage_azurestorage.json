@@ -1,0 +1,16 @@
+{
+	"name": "BlobStorage_azurestorage",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "AzureBlobStorage",
+		"typeProperties": {
+			"connectionString": "DefaultEndpointsProtocol=https;AccountName=azurestoragepw100521;EndpointSuffix=core.windows.net;",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiI4ZGQ4YWUwYS0yZjE1LTRjZDUtYTI5My1iMWQzMGY4ZjQ1YTkiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+		},
+		"connectVia": {
+			"referenceName": "BekPersonalMachine",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}
