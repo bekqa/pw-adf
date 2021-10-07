@@ -5,6 +5,9 @@
 			"referenceName": "OnPrem_SQL_Server_Connection",
 			"type": "LinkedServiceReference"
 		},
+		"folder": {
+			"name": "Copy Wizard Datasets"
+		},
 		"annotations": [],
 		"type": "SqlServerTable",
 		"schema": [

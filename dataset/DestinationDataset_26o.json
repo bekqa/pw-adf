@@ -5,6 +5,9 @@
 			"referenceName": "Azure_SQLDB_to_PWAzureTraining",
 			"type": "LinkedServiceReference"
 		},
+		"folder": {
+			"name": "Copy Wizard Datasets"
+		},
 		"annotations": [],
 		"type": "AzureSqlTable",
 		"schema": [
