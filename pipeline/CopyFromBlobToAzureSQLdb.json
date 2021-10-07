@@ -90,6 +90,9 @@
 				]
 			}
 		],
+		"folder": {
+			"name": "Copy Wizards"
+		},
 		"annotations": []
 	}
 }
