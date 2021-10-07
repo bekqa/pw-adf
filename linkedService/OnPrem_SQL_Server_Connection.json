@@ -5,12 +5,12 @@
 		"annotations": [],
 		"type": "SqlServer",
 		"typeProperties": {
-			"connectionString": "integrated security=True;data source=192.168.0.79;initial catalog=PWAzureADFOnPrem",
-			"userName": "Bek Kenchenbayev",
-			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiJiMmU2ZTZjNi03YjI0LTQyNjItOWM3MS0yZGU5MTM1ZWJlOTEiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+			"connectionString": "integrated security=True;data source=DESKTOP-1EEQMSF;initial catalog=PWonPremDB",
+			"userName": "DESKTOP-1EEQMSF\\bek",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiI2NTVjMmJhMi02YjNlLTRiNWEtYjdhOS01NmI5ZjJhNGQ2NDciLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
 		},
 		"connectVia": {
-			"referenceName": "BekLocalMachine",
+			"referenceName": "BekPersonalMachine",
 			"type": "IntegrationRuntimeReference"
 		}
 	}
