@@ -23,6 +23,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'OnPrem_SQL_Server_Connection'"
 		},
+		"ls_blob_sa_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'ls_blob_sa'"
+		},
 		"OnPrem_SQL_Server_Connection_properties_typeProperties_userName": {
 			"type": "string",
 			"defaultValue": "DESKTOP-1EEQMSF\\bek"
@@ -59,6 +63,9 @@
 					},
 					"BlobStorage_azurestorage_connectionString": {
 						"value": "[parameters('BlobStorage_azurestorage_connectionString')]"
+					},
+					"ls_blob_sa_connectionString": {
+						"value": "[parameters('ls_blob_sa_connectionString')]"
 					},
 					"OnPrem_SQL_Server_Connection_connectionString": {
 						"value": "[parameters('OnPrem_SQL_Server_Connection_connectionString')]"

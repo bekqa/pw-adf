@@ -17,6 +17,9 @@
 		"OnPrem_SQL_Server_Connection_password": {
 			"value": ""
 		},
+		"ls_blob_sa_connectionString": {
+			"value": ""
+		},
 		"OnPrem_SQL_Server_Connection_properties_typeProperties_userName": {
 			"value": "DESKTOP-1EEQMSF\\bek"
 		}

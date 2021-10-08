@@ -23,6 +23,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'OnPrem_SQL_Server_Connection'"
 		},
+		"ls_blob_sa_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'ls_blob_sa'"
+		},
 		"OnPrem_SQL_Server_Connection_properties_typeProperties_userName": {
 			"type": "string",
 			"defaultValue": "DESKTOP-1EEQMSF\\bek"
@@ -219,6 +223,96 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/pl_blob_to_azure_db')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": " ",
+				"activities": [
+					{
+						"name": "ca_blob_to_azure_db",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "DelimitedTextSource",
+								"storeSettings": {
+									"type": "AzureBlobStorageReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
+								},
+								"formatSettings": {
+									"type": "DelimitedTextReadSettings"
+								}
+							},
+							"sink": {
+								"type": "AzureSqlSink",
+								"preCopyScript": "truncate table dbo.emp",
+								"disableMetricsCollection": false
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "FirstName",
+											"type": "String"
+										},
+										"sink": {
+											"name": "FirstName",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "LastName",
+											"type": "String"
+										},
+										"sink": {
+											"name": "LastName",
+											"type": "String"
+										}
+									}
+								]
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "ds_source_blob_sa",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "ds_destination_azure_sql_db",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/ds_source_blob_sa')]",
+				"[concat(variables('factoryId'), '/datasets/ds_destination_azure_sql_db')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/DestinationDataset_26o')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -226,6 +320,9 @@
 				"linkedServiceName": {
 					"referenceName": "Azure_SQLDB_to_PWAzureTraining",
 					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "Copy Wizard Datasets"
 				},
 				"annotations": [],
 				"type": "AzureSqlTable",
@@ -267,6 +364,9 @@
 					"referenceName": "BlobStorage_azurestorage",
 					"type": "LinkedServiceReference"
 				},
+				"folder": {
+					"name": "Copy Wizard Datasets"
+				},
 				"annotations": [],
 				"type": "DelimitedText",
 				"typeProperties": {
@@ -293,6 +393,9 @@
 				"linkedServiceName": {
 					"referenceName": "BlobStorage_azurestorage",
 					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "Copy Wizard Datasets"
 				},
 				"annotations": [],
 				"type": "DelimitedText",
@@ -331,6 +434,9 @@
 					"referenceName": "OnPrem_SQL_Server_Connection",
 					"type": "LinkedServiceReference"
 				},
+				"folder": {
+					"name": "Copy Wizard Datasets"
+				},
 				"annotations": [],
 				"type": "SqlServerTable",
 				"schema": [
@@ -358,6 +464,78 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/ds_destination_azure_sql_db')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "Azure_SQLDB_to_PWAzureTraining",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "ID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "FirstName",
+						"type": "varchar"
+					},
+					{
+						"name": "LastName",
+						"type": "varchar"
+					}
+				],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "emp"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/Azure_SQLDB_to_PWAzureTraining')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ds_source_blob_sa')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ls_blob_sa",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "inputEmp_tq.txt",
+						"container": "pw-container-bk"
+					},
+					"columnDelimiter": "|",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "FirstName",
+						"type": "String"
+					},
+					{
+						"name": "LastName",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ls_blob_sa')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/Azure_SQLDB_to_PWAzureTraining')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
@@ -379,15 +557,9 @@
 				"type": "AzureBlobStorage",
 				"typeProperties": {
 					"connectionString": "[parameters('BlobStorage_azurestorage_connectionString')]"
-				},
-				"connectVia": {
-					"referenceName": "BekPersonalMachine",
-					"type": "IntegrationRuntimeReference"
 				}
 			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/integrationRuntimes/BekPersonalMachine')]"
-			]
+			"dependsOn": []
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/OnPrem_SQL_Server_Connection')]",
@@ -414,12 +586,15 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/BekLocalMachine')]",
-			"type": "Microsoft.DataFactory/factories/integrationRuntimes",
+			"name": "[concat(parameters('factoryName'), '/ls_blob_sa')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
 			"properties": {
-				"type": "SelfHosted",
-				"typeProperties": {}
+				"annotations": [],
+				"type": "AzureBlobStorage",
+				"typeProperties": {
+					"connectionString": "[parameters('ls_blob_sa_connectionString')]"
+				}
 			},
 			"dependsOn": []
 		},
